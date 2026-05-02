@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stealth Solver — Setup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="setup.css" />
+</head>
+<body>
+  <div class="window">
+    <!-- Header -->
+    <div class="header" id="dragHeader">
+      <div class="header-icon">⚡</div>
+      <h1 class="header-title">Stealth Solver</h1>
+      <p class="header-sub">First-time setup — add at least one API key to get started</p>
+    </div>
+
+    <!-- Content -->
+    <div class="setup-body">
+      <!-- Info banner -->
+      <div class="info-banner">
+        <span class="info-icon">🔄</span>
+        <span>Models auto-rotate if one hits rate limits. Add more keys for best reliability.</span>
+      </div>
+
+      <!-- API Key fields -->
+      <div class="fields">
+
+        <div class="field-group">
+          <label class="field-label">
+            <span class="provider-badge gemini">1</span>
+            Google Gemini API Key
+            <span class="badge free">FREE · 1500 req/day</span>
+          </label>
+          <div class="input-row">
+            <input type="password" id="geminiKey" class="key-input" placeholder="AIza..." autocomplete="off" />
+            <button class="eye-btn" data-target="geminiKey">👁</button>
+          </div>
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" class="get-key-link">Get free key →</a>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">
+            <span class="provider-badge groq">2</span>
+            Groq API Key
+            <span class="badge free">FREE · 30 RPM</span>
+          </label>
+          <div class="input-row">
+            <input type="password" id="groqKey" class="key-input" placeholder="gsk_..." autocomplete="off" />
+            <button class="eye-btn" data-target="groqKey">👁</button>
+          </div>
+          <a href="https://console.groq.com/keys" target="_blank" class="get-key-link">Get free key →</a>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">
+            <span class="provider-badge openrouter">3</span>
+            OpenRouter API Key
+            <span class="badge free">FREE tier</span>
+          </label>
+          <div class="input-row">
+            <input type="password" id="openrouterKey" class="key-input" placeholder="sk-or-..." autocomplete="off" />
+            <button class="eye-btn" data-target="openrouterKey">👁</button>
+          </div>
+          <a href="https://openrouter.ai/keys" target="_blank" class="get-key-link">Get free key →</a>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">
+            <span class="provider-badge openai">4</span>
+            OpenAI API Key
+            <span class="badge paid">Pay-as-you-go</span>
+          </label>
+          <div class="input-row">
+            <input type="password" id="openaiKey" class="key-input" placeholder="sk-..." autocomplete="off" />
+            <button class="eye-btn" data-target="openaiKey">👁</button>
+          </div>
+          <a href="https://platform.openai.com/api-keys" target="_blank" class="get-key-link">Get key →</a>
+        </div>
+      </div>
+
+      <p class="storage-note">🔒 Keys are stored locally in <code>~/.stealth-solver/config.json</code> — never sent anywhere else.</p>
+
+      <!-- Error -->
+      <p class="error-msg hidden" id="errorMsg">⚠ Please add at least one API key to continue.</p>
+
+      <!-- Save button -->
+      <button class="save-btn" id="saveBtn">
+        <span>Launch Stealth Solver</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </div>
+  <script src="setup.js"></script>
+</body>
+</html>

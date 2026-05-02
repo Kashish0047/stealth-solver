@@ -1,0 +1,54 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.35);
+  cursor: crosshair;
+  overflow: hidden;
+  user-select: none;
+}
+
+.crosshair-h {
+  position: fixed;
+  left: 0; right: 0;
+  height: 1px;
+  background: rgba(124, 106, 247, 0.5);
+  pointer-events: none;
+  top: -999px;
+  transition: top 0s;
+}
+
+.crosshair-v {
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(124, 106, 247, 0.5);
+  pointer-events: none;
+  left: -999px;
+}
+
+.selection-box {
+  position: fixed;
+  border: 2px solid #7c6af7;
+  background: rgba(124, 106, 247, 0.08);
+  box-shadow: 0 0 0 1px rgba(124,106,247,0.3), inset 0 0 20px rgba(124,106,247,0.05);
+  display: none;
+  pointer-events: none;
+}
+
+.coords-tip {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10,10,18,0.9);
+  color: #94a3b8;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 12px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  white-space: nowrap;
+  pointer-events: none;
+}

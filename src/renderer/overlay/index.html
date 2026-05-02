@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stealth Solver</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="overlay.css" />
+</head>
+<body>
+
+  <!-- Tiny pulsing dot while loading (bottom-right) -->
+  <div id="loadingDot"></div>
+
+  <!-- Error dot (replaces loading dot on failure) -->
+  <div id="errorDot"></div>
+
+  <!-- Answer panel — MCQ text OR DSA code block, faint bottom-right -->
+  <div id="answerPanel">
+    <div id="answerLines"></div>
+  </div>
+
+  <!-- Short-lived saved notification for web/MERN questions -->
+  <div id="savedToast"></div>
+
+  <script src="overlay.js"></script>
+</body>
+</html>

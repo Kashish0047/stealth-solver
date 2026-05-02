@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --mono: 'JetBrains Mono', monospace;
+  /* Extremely subtle dark gray */
+  --text-color: rgba(0, 0, 0, 0.3); 
+  --accent: rgba(0, 0, 0, 0.15);
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  overflow: hidden;
+  font-family: var(--mono);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─── Loading Dot ─── */
+#loadingDot {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+}
+#loadingDot.visible {
+  opacity: 1;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.05; }
+  50%       { opacity: 0.25; }
+}
+
+/* ─── Answer Panel ─── */
+#answerPanel {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: auto; /* Enable scrolling */
+}
+#answerPanel.visible { opacity: 1; }
+
+#answerLines {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: flex-end;
+}
+
+/* ─── Answer Lines (MCQ) ─── */
+.answer-line {
+  font-size: 8px;
+  color: var(--text-color);
+  background: transparent;
+  text-align: right;
+}
+
+/* ─── DSA Code Block (Tiny & Scrollable) ─── */
+.code-block {
+  width: 250px; /* Fixed width */
+  max-height: 150px; /* Fixed height */
+  background: transparent;
+  overflow: auto; /* Enable scrolling */
+  scrollbar-width: none; /* Hide scrollbar for stealth */
+}
+.code-block::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.code-pre {
+  font-family: var(--mono);
+  font-size: 7px; /* Extra small */
+  line-height: 1.2;
+  color: var(--text-color);
+  white-space: pre;
+  text-align: left;
+  padding: 2px;
+}
+
+/* ─── Saved Toast ─── */
+#savedToast {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  font-size: 7px;
+  color: var(--text-color);
+  opacity: 0;
+}
+#savedToast.visible { opacity: 1; }
