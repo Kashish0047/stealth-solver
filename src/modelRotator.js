@@ -7,38 +7,31 @@
 
 const MODEL_POOL = [
   {
-    id: 'gemini-3.1-pro',
+    id: 'gemini-1.5-pro',
     provider: 'gemini',
-    model: 'gemini-3.1-pro',
-    name: 'Gemini 3.1 Pro',
+    model: 'gemini-1.5-pro',
+    name: 'Gemini 1.5 Pro',
     requiresKey: 'gemini'
   },
   {
-    id: 'gemini-3-flash',
+    id: 'gemini-1.5-flash',
     provider: 'gemini',
-    model: 'gemini-3-flash',
-    name: 'Gemini 3 Flash',
+    model: 'gemini-1.5-flash',
+    name: 'Gemini 1.5 Flash',
     requiresKey: 'gemini'
   },
   {
-    id: 'gemini-2.5-pro',
+    id: 'gemini-pro-vision',
     provider: 'gemini',
-    model: 'gemini-2.5-pro',
-    name: 'Gemini 2.5 Pro',
+    model: 'gemini-pro-vision',
+    name: 'Gemini Pro Vision',
     requiresKey: 'gemini'
   },
   {
-    id: 'gemini-2.5-flash',
-    provider: 'gemini',
-    model: 'gemini-2.5-flash',
-    name: 'Gemini 2.5 Flash',
-    requiresKey: 'gemini'
-  },
-  {
-    id: 'groq-llama-4-scout',
+    id: 'groq-llama-3.1-70b',
     provider: 'groq',
-    model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-    name: 'Groq Llama 4 Scout',
+    model: 'llama-3.1-70b-versatile',
+    name: 'Groq Llama 3.1 70B',
     requiresKey: 'groq'
   },
   {
@@ -64,7 +57,6 @@ function getAvailableModels(keys) {
 
 function cooldown(modelId, seconds = 60) {
   coolingModels.set(modelId, Date.now() + seconds * 1000);
-  console.log(`[ModelRotator] ${modelId} cooling for ${seconds}s`);
 }
 
 function getNextModel(keys) {

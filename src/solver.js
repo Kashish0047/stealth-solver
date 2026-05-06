@@ -1,6 +1,6 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { OpenAI } = require('openai');
-const { getNextModel, cooldown, isRateLimitError } = require('./modelRotator');
+const { MODEL_POOL, getNextModel, cooldown, isRateLimitError } = require('./modelRotator');
 
 const SOLVE_PROMPT = `You are an expert programming assistant and exam solver. Analyze this screenshot carefully.
 
@@ -104,14 +104,15 @@ function parseResponse(text) {
 async function solve(base64DataUrl, config) {
   const keys = config.keys || {};
 
-  for (let attempt = 0; attempt < MODEL_POOL_SIZE; attempt++) {
+  for (let attempt = 0; attempt < MODEL_POOL.length; attempt++) {
     const model = getNextModel(keys);
     if (!model) {
       throw new Error('All models exhausted or no API keys configured.\nPlease wait 60s or add more API keys.');
     }
 
     try {
-      console.log(`[Solver] Trying ${model.name}...`);
+      // Silent mode for stealth
+      // console.log(`[Solver] Trying ${model.name}...`);
       let result;
 
       switch (model.provider) {
@@ -135,11 +136,8 @@ async function solve(base64DataUrl, config) {
       return result;
 
     } catch (err) {
-      console.error(`[Solver] ${model.name} failed: ${err.message}`);
-
       if (isRateLimitError(err)) {
         cooldown(model.id, 60);
-        console.log(`[Solver] Rate limited on ${model.name}, switching...`);
       } else {
         // Non-rate-limit error: short cooldown before retrying
         cooldown(model.id, 10);
@@ -149,7 +147,5 @@ async function solve(base64DataUrl, config) {
 
   throw new Error('All models failed. Check your API keys and try again.');
 }
-
-const MODEL_POOL_SIZE = 5; // max attempts = number of models
 
 module.exports = { solve };
