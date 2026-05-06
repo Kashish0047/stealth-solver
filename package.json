@@ -1,10 +1,10 @@
 {
   "name": "stealth-solver",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "AI-powered floating overlay that solves coding questions and MCQs without switching tabs",
   "main": "src/main.js",
   "bin": {
-    "stealth-solver": "./bin/stealth-solver.js"
+    "stealth-solver": "bin/stealth-solver.js"
   },
   "scripts": {
     "start": "electron .",
@@ -18,11 +18,17 @@
     "solver",
     "electron"
   ],
-  "author": "",
+  "author": "Kashish",
   "license": "MIT",
+  "files": [
+    "src",
+    "bin",
+    "README.md"
+  ],
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
-    "openai": "^4.52.0",
-    "electron": "^31.3.0"
+    "dotenv": "^17.4.2",
+    "electron": "^31.3.0",
+    "openai": "^4.52.0"
   }
 }

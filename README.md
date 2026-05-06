@@ -13,10 +13,17 @@
 
 ## Quick Start
 
+The fastest way to use it is via `npx`:
+
 ```bash
-cd stealth-solver
-npm install
-npm start
+npx stealth-solver
+```
+
+Or install it globally:
+
+```bash
+npm install -g stealth-solver
+stealth-solver
 ```
 
 On first launch, a setup window appears — paste your API key(s) and click **Launch**.
@@ -40,6 +47,7 @@ On first launch, a setup window appears — paste your API key(s) and click **La
 | `` ` `` again | Restore all windows |
 | `Ctrl+Shift+H` | Soft toggle panel |
 | `Ctrl+Shift+C` | Clear current answer |
+| `Ctrl+Shift+X` | **SELF DESTRUCT** — instantly quits the app |
 | `Escape` | Cancel region selection |
 
 ## Getting Free API Keys

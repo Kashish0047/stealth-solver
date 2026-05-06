@@ -127,6 +127,12 @@ function registerHotkeys() {
   globalShortcut.register('CommandOrControl+Shift+C', () => {
     if (overlayWindow) overlayWindow.webContents.send('clear');
   });
+
+  // SELF DESTRUCT / Finish Test (Ctrl+Shift+X)
+  // Instantly quits the app and unregisters all keys
+  globalShortcut.register('CommandOrControl+Shift+X', () => {
+    app.quit();
+  });
 }
 
 // ─── IPC Handlers ─────────────────────────────────────────────────────────────

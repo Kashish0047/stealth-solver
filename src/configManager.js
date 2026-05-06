@@ -7,7 +7,7 @@ const CONFIG_FILE = path.join(CONFIG_DIR, 'config.json');
 const STATE_FILE = path.join(CONFIG_DIR, 'state.json');
 
 const DEFAULT_CONFIG = {
-  hasSetup: false,
+  hasSetup: true,
   keys: {
     gemini: '',
     groq: '',
@@ -26,14 +26,16 @@ function ensureDir() {
 
 function load() {
   ensureDir();
-  if (!fs.existsSync(CONFIG_FILE)) {
-    return { ...DEFAULT_CONFIG };
+  let config = { ...DEFAULT_CONFIG };
+  if (fs.existsSync(CONFIG_FILE)) {
+    try {
+      const saved = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+      config = { ...config, ...saved };
+    } catch {
+      // Use defaults on error
+    }
   }
-  try {
-    return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-  } catch {
-    return { ...DEFAULT_CONFIG };
-  }
+  return config;
 }
 
 function save(config) {
