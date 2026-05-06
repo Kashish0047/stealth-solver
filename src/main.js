@@ -1,3 +1,4 @@
+require('dotenv').config();
 const {
   app,
   BrowserWindow,
@@ -77,6 +78,11 @@ app.whenReady().then(() => {
   } else {
     createOverlayWindow();
     registerHotkeys();
+    console.log('\x1b[32m%s\x1b[0m', '⚡ Stealth Solver Active');
+    console.log('\x1b[36m%s\x1b[0m', 'Hotkeys:');
+    console.log(' - Ctrl+Shift+S: Capture & Solve');
+    console.log(' - ` (Backtick): Panic Hide/Show');
+    console.log(' - Ctrl+Shift+X: Exit');
   }
 });
 
