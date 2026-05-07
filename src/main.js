@@ -79,8 +79,14 @@ app.whenReady().then(() => {
     createOverlayWindow();
     registerHotkeys();
     console.log('\x1b[32m%s\x1b[0m', '⚡ Stealth Solver Active');
+    const config = configManager.load();
+    const hasEnv = !!(process.env.GEMINI_KEY || process.env.GROQ_KEY);
+    if (hasEnv) {
+      console.log('\x1b[35m%s\x1b[0m', '🔑 Keys loaded from .env');
+    }
     console.log('\x1b[36m%s\x1b[0m', 'Hotkeys:');
     console.log(' - Ctrl+Shift+S: Capture & Solve');
+    console.log(' - Ctrl+Shift+M: Toggle Mouse (for scroll/copy)');
     console.log(' - ` (Backtick): Panic Hide/Show');
     console.log(' - Ctrl+Shift+X: Exit');
   }
@@ -99,7 +105,7 @@ app.on('window-all-closed', () => {
 function registerHotkeys() {
   // Capture + solve (Ctrl+Shift+S)
   globalShortcut.register('CommandOrControl+Shift+S', async () => {
-    if (panicManager.isPanic()) return;
+    console.log('\x1b[33m%s\x1b[0m', '📸 Capturing screen...');
     overlayWindow.webContents.send('status', { type: 'loading', message: 'Solving...' });
     await captureAndSolve();
   });
@@ -132,6 +138,20 @@ function registerHotkeys() {
   // Clear answer (Ctrl+Shift+C)
   globalShortcut.register('CommandOrControl+Shift+C', () => {
     if (overlayWindow) overlayWindow.webContents.send('clear');
+  });
+
+  // Toggle Mouse Interaction (Ctrl+Shift+M)
+  let ignoreMouse = true;
+  globalShortcut.register('CommandOrControl+Shift+M', () => {
+    ignoreMouse = !ignoreMouse;
+    if (overlayWindow) {
+      overlayWindow.setIgnoreMouseEvents(ignoreMouse, { forward: true });
+      overlayWindow.webContents.send('status', { 
+        type: 'info', 
+        message: ignoreMouse ? 'Mouse: OFF' : 'Mouse: ON' 
+      });
+      console.log(`[Main] Mouse Ignore: ${ignoreMouse}`);
+    }
   });
 
   // SELF DESTRUCT / Finish Test (Ctrl+Shift+X)
@@ -174,7 +194,9 @@ async function captureAndSolve() {
     }
 
     const config = configManager.load();
+    console.log('\x1b[33m%s\x1b[0m', '🧠 Thinking...');
     const result = await solver.solve(base64, config);
+    console.log('\x1b[32m%s\x1b[0m', '✅ Result received!');
 
     // ── Route based on question category ──────────────────────────────────────
     if (result.type === 'web') {
@@ -207,6 +229,7 @@ async function captureAndSolve() {
     }
   } catch (err) {
     if (overlayWindow) {
+      console.error('\x1b[31m%s\x1b[0m', `❌ Error: ${err.message}`);
       overlayWindow.show();
       overlayWindow.setContentProtection(true);
       overlayWindow.webContents.send('status', { type: 'error', message: err.message });

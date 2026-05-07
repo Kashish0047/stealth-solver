@@ -6,9 +6,9 @@
 
 :root {
   --mono: 'JetBrains Mono', monospace;
-  /* Extremely subtle dark gray */
-  --text-color: rgba(0, 0, 0, 0.3); 
-  --accent: rgba(0, 0, 0, 0.15);
+  /* Darker text for readability but still faint */
+  --text-color: rgba(0, 0, 0, 0.5); 
+  --accent: rgba(0, 0, 0, 0.2);
 }
 
 html, body {
@@ -39,6 +39,22 @@ html, body {
 @keyframes pulse {
   0%, 100% { opacity: 0.05; }
   50%       { opacity: 0.25; }
+}
+
+/* ─── Error Dot ─── */
+#errorDot {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.4); /* Faint red */
+  opacity: 0;
+  pointer-events: none;
+}
+#errorDot.visible {
+  opacity: 1;
 }
 
 /* ─── Answer Panel ─── */
@@ -72,24 +88,51 @@ html, body {
 
 /* ─── DSA Code Block (Tiny & Scrollable) ─── */
 .code-block {
-  width: 250px; /* Fixed width */
-  max-height: 150px; /* Fixed height */
-  background: transparent;
-  overflow: auto; /* Enable scrolling */
-  scrollbar-width: none; /* Hide scrollbar for stealth */
+  width: 300px; /* Slightly wider */
+  max-height: 45px; /* Exactly ~3 lines of 10px text */
+  background: rgba(255, 255, 255, 0.02); /* Very subtle background */
+  overflow-y: auto; /* Vertical scroll only */
+  overflow-x: hidden;
+  scrollbar-width: none; 
+  position: relative;
+  border-radius: 4px;
 }
 .code-block::-webkit-scrollbar {
   display: none; /* Hide scrollbar Chrome/Safari */
 }
 
+.copy-btn {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--text-color);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  padding: 1px 5px;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  z-index: 100;
+}
+.copy-btn:hover {
+  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .code-pre {
   font-family: var(--mono);
-  font-size: 7px; /* Extra small */
-  line-height: 1.2;
+  font-size: 10px; /* Readable proper font */
+  line-height: 1.4;
   color: var(--text-color);
-  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-word;
   text-align: left;
-  padding: 2px;
+  padding: 4px;
+  margin-top: 0; 
+  background: transparent;
 }
 
 /* ─── Saved Toast ─── */

@@ -8,6 +8,7 @@ CRITICAL: ZERO TOLERANCE FOR COMMENTS.
 - DO NOT use //, /* */, <!-- -->, or # comments.
 - DO NOT include explanations, summary text, or markdown formatting outside the JSON.
 - PROVIDE ONLY RAW, WORKING CODE LINES.
+- MAINTAIN STANDARD INDENTATION AND VERTICAL SPACING (New lines between logic blocks).
 
 STEP 1 — Identify the question type:
 - "mcq": Multiple choice / theory questions
@@ -19,12 +20,12 @@ STEP 2 — Solve accordingly:
 
 If DSA ("dsa"):
 - Detect the question name (e.g., "TwoSum")
-- Provide ONLY the optimized code lines. ABSOLUTELY NO COMMENTS.
+- Provide the optimized code with PROPER INDENTATION and STANDARD FORMATTING.
 - Provide as a SINGLE file.
 
 If Web/MERN ("web"):
 - Detect the project name (e.g., "TodoApp")
-- Provide ALL necessary files. ABSOLUTELY NO COMMENTS.
+- Provide ALL necessary files with PROPER FORMATTING.
 - Each file must have its proper name.
 
 If MCQ ("mcq"):
@@ -35,7 +36,7 @@ IMPORTANT: Respond ONLY with a valid JSON object:
   "type": "dsa" or "web" or "mcq" or "mixed",
   "questionName": "ShortName",
   "language": "language",
-  "files": [{"name": "file.ext", "content": "code"}],
+  "files": [{"name": "file.ext", "content": "ONE SINGLE STRING WITH \\n FOR NEWLINES. DO NOT USE ARRAYS."}],
   "answers": [{"answer": "correct_option_text"}],
   "summary": ""
 }`;
@@ -111,8 +112,7 @@ async function solve(base64DataUrl, config) {
     }
 
     try {
-      // Silent mode for stealth
-      // console.log(`[Solver] Trying ${model.name}...`);
+      console.log(`[Solver] Trying ${model.name}...`);
       let result;
 
       switch (model.provider) {
@@ -133,9 +133,11 @@ async function solve(base64DataUrl, config) {
       }
 
       result.usedModel = model.name;
+      console.log(`[Solver] Success with ${model.name}`);
       return result;
 
     } catch (err) {
+      console.warn(`[Solver] ${model.name} failed: ${err.message}`);
       if (isRateLimitError(err)) {
         cooldown(model.id, 60);
       } else {

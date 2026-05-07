@@ -7,11 +7,10 @@ const CONFIG_FILE = path.join(CONFIG_DIR, 'config.json');
 const STATE_FILE = path.join(CONFIG_DIR, 'state.json');
 
 const DEFAULT_CONFIG = {
-  hasSetup: true,
+  hasSetup: false,
   keys: {
-    // Keys are obfuscated to prevent automated revocation bots
-    gemini: Buffer.from('w8kR5U1ZfJUNyNXWfhDR55WW2h1Rod1Ys50YQNEW2lDR5NVY6lUQ'.split('').reverse().join(''), 'base64').toString(),
-    groq: Buffer.from('=cmSPh1RHlmZSJmcntmRSVUU4EXRilHe2llRzIWekd0VpNzV5IHWZt0M6V3YZl1cGNzZVJ3XrN3Z'.split('').reverse().join(''), 'base64').toString(),
+    gemini: '',
+    groq: '',
     openrouter: '',
     openai: ''
   },
@@ -36,6 +35,29 @@ function load() {
       // Use defaults on error
     }
   }
+
+  // ─── Override with Environment Variables ──────────────────────────────────────
+  // This allows the user to skip setup if keys are in .env
+  const envKeys = {
+    gemini: process.env.GEMINI_KEY || process.env.GEMINI_API_KEY,
+    groq: process.env.GROQ_KEY || process.env.GROQ_API_KEY,
+    openrouter: process.env.OPENROUTER_KEY || process.env.OPENROUTER_API_KEY,
+    openai: process.env.OPENAI_KEY || process.env.OPENAI_API_KEY
+  };
+
+  // If any key is found in env, merge it and consider setup complete
+  let hasEnvKey = false;
+  for (const [provider, val] of Object.entries(envKeys)) {
+    if (val) {
+      config.keys[provider] = val;
+      hasEnvKey = true;
+    }
+  }
+
+  if (hasEnvKey) {
+    config.hasSetup = true;
+  }
+
   return config;
 }
 

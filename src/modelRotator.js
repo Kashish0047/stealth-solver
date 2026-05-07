@@ -7,10 +7,10 @@
 
 const MODEL_POOL = [
   {
-    id: 'gemini-1.5-pro',
+    id: 'gemini-2.0-flash',
     provider: 'gemini',
-    model: 'gemini-1.5-pro',
-    name: 'Gemini 1.5 Pro',
+    model: 'gemini-2.0-flash',
+    name: 'Gemini 2.0 Flash',
     requiresKey: 'gemini'
   },
   {
@@ -21,17 +21,17 @@ const MODEL_POOL = [
     requiresKey: 'gemini'
   },
   {
-    id: 'gemini-pro-vision',
+    id: 'gemini-1.5-pro',
     provider: 'gemini',
-    model: 'gemini-pro-vision',
-    name: 'Gemini Pro Vision',
+    model: 'gemini-1.5-pro',
+    name: 'Gemini 1.5 Pro',
     requiresKey: 'gemini'
   },
   {
-    id: 'groq-llama-3.1-70b',
+    id: 'groq-llama-4-scout',
     provider: 'groq',
-    model: 'llama-3.1-70b-versatile',
-    name: 'Groq Llama 3.1 70B',
+    model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+    name: 'Groq Llama 4 Scout',
     requiresKey: 'groq'
   },
   {

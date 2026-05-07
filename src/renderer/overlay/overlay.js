@@ -87,9 +87,25 @@ function renderDSACode(data) {
     const block = document.createElement('div');
     block.className = 'code-block';
 
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.textContent = 'Copy';
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(file.content);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1000);
+    };
+    block.appendChild(copyBtn);
+
     const pre = document.createElement('pre');
     pre.className = 'code-pre';
-    pre.textContent = file.content;
+    
+    // Ensure content is a string joined by newlines, not commas
+    let content = file.content;
+    if (Array.isArray(content)) {
+      content = content.join('\n');
+    }
+    pre.textContent = content;
     block.appendChild(pre);
 
     answerLines.appendChild(block);
@@ -121,6 +137,8 @@ api.onStatus(({ type }) => {
     hideAll();
   } else if (type === 'error') {
     showError();
+  } else if (type === 'info') {
+    // Optional: show a tiny brief indicator for mouse mode
   }
 });
 
@@ -131,13 +149,8 @@ api.onClear(() => {
   answerLines.innerHTML = '';
 });
 
-// ─── Mouse Interaction (Scrolling) ─────────────────────────────────────────────
-window.addEventListener('mousemove', (e) => {
-  // If we are over the answer panel or code, enable mouse events so we can scroll
-  // Otherwise, ignore mouse events so we can click through to the browser
-  const isOverPanel = !!e.target.closest('#answerPanel') || !!e.target.closest('#savedToast');
-  api.setIgnoreMouse(!isOverPanel);
-});
+// ─── Mouse Interaction logic handled by Ctrl+Shift+M ───────────────────────────
+
 
 // ─── Panic (` key) ─────────────────────────────────────────────────────────────
 api.onPanic((state) => {

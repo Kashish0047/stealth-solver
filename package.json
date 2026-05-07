@@ -1,6 +1,6 @@
 {
   "name": "stealth-solver",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "AI-powered floating overlay that solves coding questions and MCQs without switching tabs",
   "main": "src/main.js",
   "bin": {
