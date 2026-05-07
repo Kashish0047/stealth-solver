@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 const {
   app,
   BrowserWindow,
@@ -8,7 +9,7 @@ const {
   desktopCapturer
 } = require('electron');
 const fs = require('fs');
-const path = require('path');
+
 const configManager = require('./configManager');
 const solver = require('./solver');
 const panicManager = require('./panicManager');

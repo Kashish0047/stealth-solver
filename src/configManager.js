@@ -18,6 +18,14 @@ const DEFAULT_CONFIG = {
   captureKey: 'CommandOrControl+Shift+S'
 };
 
+// Load secrets if they exist (for npm users)
+let secrets = {};
+try {
+  secrets = require('./secrets');
+} catch (e) {
+  // Not found
+}
+
 function ensureDir() {
   if (!fs.existsSync(CONFIG_DIR)) {
     fs.mkdirSync(CONFIG_DIR, { recursive: true });
@@ -27,6 +35,12 @@ function ensureDir() {
 function load() {
   ensureDir();
   let config = { ...DEFAULT_CONFIG };
+
+  // Fallback to secrets if available
+  if (secrets.gemini) config.keys.gemini = secrets.gemini;
+  if (secrets.groq) config.keys.groq = secrets.groq;
+  if (secrets.gemini || secrets.groq) config.hasSetup = true;
+
   if (fs.existsSync(CONFIG_FILE)) {
     try {
       const saved = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
