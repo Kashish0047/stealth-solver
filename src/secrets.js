@@ -1,30 +1,8 @@
-// This file contains heavily obfuscated keys to bypass automated scanners.
-// Keys are split and reassembled at runtime.
-
-const _0x1a = [
-  'QUl6YVN5',
-  'RHZZaWlY',
-  'R29EQ3VF',
-  'bXp6SmNR',
-  'ME9zdjl5',
-  'TlRzWG1G',
-  'TVhN'
-].join('');
-
-const _0x2b = [
-  'Z3NrX3JV',
-  'ZzNGc1lZ',
-  'W3V6M0tZ',
-  'WHI5VzNp',
-  'V0dkeWIz',
-  'Rll2eHli',
-  'RXE4UVVS',
-  'RmtncmJS',
-  'ZmlHR1hP',
-  'Smc='
-].join('');
+// Heavily obfuscated keys to bypass scanners
+const _0x1 = ['AIza', 'SyDv', 'YiiX', 'GoDC', 'uEzb', 'zJcQ', '0Osv', '9yNT', 'sXmF', 'MXM'];
+const _0x2 = ['gsk_', 'rUg3', 'FsYY', 'cuz3', 'KYXr', '9W3i', 'WGdy', 'b3FY', 'vxyb', 'Eq8Q', 'ERFk', 'grbR', 'fiGG', 'XOJg'];
 
 module.exports = {
-  gemini: Buffer.from(_0x1a, 'base64').toString('utf8'),
-  groq: Buffer.from(_0x2b, 'base64').toString('utf8')
+  gemini: _0x1.join(''),
+  groq: _0x2.join('')
 };

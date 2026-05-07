@@ -44,7 +44,17 @@ function load() {
   if (fs.existsSync(CONFIG_FILE)) {
     try {
       const saved = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-      config = { ...config, ...saved };
+      // Only merge if keys are actually set (not placeholders)
+      if (saved.keys) {
+        for (const [p, k] of Object.entries(saved.keys)) {
+          if (k && k !== 'USE_ENV_VARIABLE' && !k.startsWith('env:')) {
+            config.keys[p] = k;
+          }
+        }
+      }
+      if (saved.panicKey) config.panicKey = saved.panicKey;
+      if (saved.captureKey) config.captureKey = saved.captureKey;
+      if (saved.hasSetup !== undefined) config.hasSetup = saved.hasSetup || config.hasSetup;
     } catch {
       // Use defaults on error
     }
